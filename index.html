@@ -1,1 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frozen Atelier</title>
 
+<style>
+body{
+    margin:0;
+    background:linear-gradient(#03121d,#071f2d,#0a2838);
+    color:#c7ebff;
+    font-family:monospace;
+    overflow:hidden;
+}
+
+/* 背景ノイズ */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    repeating-linear-gradient(
+        transparent 0px,
+        rgba(255,255,255,.02) 2px,
+        transparent 4px
+    );
+    pointer-events:none;
+}
+
+/* 魚 */
+.fish{
+    position:absolute;
+    opacity:.15;
+    font-size:50px;
+    animation:swim linear infinite;
+}
+
+.f1{
+    top:20%;
+    animation-duration:25s;
+}
+
+.f2{
+    top:60%;
+    animation-duration:40s;
+}
+
+@keyframes swim{
+    from{
+        transform:translateX(-100px);
+    }
+    to{
+        transform:translateX(calc(100vw + 200px));
+    }
+}
+
+/* メイン端末 */
+.terminal{
+    width:min(800px,90%);
+    margin:60px auto;
+    padding:20px;
+    border:1px solid rgba(180,220,255,.4);
+    background:rgba(0,20,35,.75);
+    backdrop-filter:blur(6px);
+    box-shadow:0 0 25px rgba(120,200,255,.15);
+}
+
+/* タイトル */
+.title{
+    font-size:2em;
+    letter-spacing:5px;
+    text-align:center;
+    animation:glitch 6s infinite;
+}
+
+@keyframes glitch{
+    0%,95%,100%{
+        transform:none;
+    }
+    96%{
+        transform:translateX(2px);
+    }
+    97%{
+        transform:translateX(-2px);
+    }
+}
+
+.status{
+    text-align:center;
+    opacity:.6;
+    margin-bottom:25px;
+}
+
+/* フォルダ */
+.folder{
+    padding:12px;
+    margin:10px 0;
+    border:1px solid rgba(180,220,255,.2);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.folder:hover{
+    transform:translateX(8px);
+    background:rgba(120,180,255,.08);
+}
+
+/* ウィンドウ */
+.window{
+    display:none;
+    margin-top:20px;
+    padding:15px;
+    border:1px solid rgba(180,220,255,.2);
+    background:rgba(0,0,0,.25);
+}
+
+.window.active{
+    display:block;
+}
+
+/* エラー表示 */
+.error{
+    position:fixed;
+    bottom:15px;
+    right:15px;
+    opacity:.2;
+    font-size:.8em;
+}
+</style>
+</head>
+<body>
+
+<div class="fish f1">🐟</div>
+<div class="fish f2">🐠</div>
+
+<div class="terminal">
+
+<div class="title">
+FROZEN ATELIER
+</div>
+
+<div class="status">
+ARCHIVE STATUS : ACTIVE
+</div>
+
+<div class="folder" onclick="openFolder('profile')">
+📁 PROFILE
+</div>
+
+<div class="folder" onclick="openFolder('works')">
+📁 CREATIONS
+</div>
+
+<div class="folder" onclick="openFolder('guest')">
+📁 MESSAGE BOX
+</div>
+
+<div id="profile" class="window">
+<h3>USER DATA</h3>
+<p>NAME : みうし</p>
+<p>STATUS : 創作中...</p>
+<p>LOVE : 猫 / 世界観 / 絵</p>
+</div>
+
+<div id="works" class="window">
+<h3>ARCHIVE</h3>
+<p>📄 世界観A</p>
+<p>📄 世界観B</p>
+<p>📄 キャラクター資料</p>
+</div>
+
+<div id="guest" class="window">
+<h3>MESSAGE BOX</h3>
+<p>ここに感想フォームを埋め込める！</p>
+</div>
+
+</div>
+
+<div class="error">
+SIGNAL UNSTABLE...
+</div>
+
+<script>
+function openFolder(id){
+
+document.querySelectorAll('.window')
+.forEach(w=>w.classList.remove('active'));
+
+document.getElementById(id)
+.classList.add('active');
+}
+</script>
+
+</body>
+</html>
